@@ -26,23 +26,16 @@ namespace strona_internetowa_mvc.Controllers
         // GET: Main/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Product());
         }
 
         // POST: Main/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Product product)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            product.ProductId = products.Count + 1;
+            products.Add(product);
+            return RedirectToAction("Index");
         }
 
         // GET: Main/Edit/5

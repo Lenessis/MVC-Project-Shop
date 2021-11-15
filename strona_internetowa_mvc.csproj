@@ -173,6 +173,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
