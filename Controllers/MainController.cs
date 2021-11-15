@@ -20,7 +20,7 @@ namespace strona_internetowa_mvc.Controllers
         // GET: Main/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(products.FirstOrDefault(x => x.ProductId == id)); // Send information about id and search for maching element from the list
         }
 
         // GET: Main/Create
