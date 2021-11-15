@@ -68,16 +68,17 @@ namespace strona_internetowa_mvc.Controllers
         // GET: Main/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(products.FirstOrDefault(x=>x.ProductId==id));
         }
 
         // POST: Main/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Product product)
         {
             try
             {
-                // TODO: Add delete logic here
+                Product trash = products.FirstOrDefault(x => x.ProductId == id);
+                products.Remove(trash);
 
                 return RedirectToAction("Index");
             }
