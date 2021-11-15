@@ -33,31 +33,36 @@ namespace strona_internetowa_mvc.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            product.ProductId = products.Count + 1;
-            products.Add(product);
-            return RedirectToAction("Index");
-        }
+            try
+            {
+                product.ProductId = products.Count + 1;
+                products.Add(product);
+                return RedirectToAction("Index");
+            }
+
+            catch
+            {
+                return View();
+            }       
+}
 
         // GET: Main/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(products.FirstOrDefault(x => x.ProductId ==id));
         }
 
         // POST: Main/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Product product)
         {
-            try
-            {
-                // TODO: Add update logic here
+                Product single_product = products.FirstOrDefault(x => x.ProductId == id);
+                single_product.ProductName = product.ProductName;
+                single_product.Description = product.Description;
+                single_product.Amount = product.Amount;
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            
         }
 
         // GET: Main/Delete/5
