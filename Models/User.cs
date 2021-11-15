@@ -18,8 +18,5 @@ namespace strona_internetowa_mvc.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-
-
-
     }
 }
