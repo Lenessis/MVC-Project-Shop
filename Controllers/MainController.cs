@@ -1,6 +1,7 @@
 ﻿using strona_internetowa_mvc.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,17 +11,21 @@ namespace strona_internetowa_mvc.Controllers
     public class MainController : Controller
     {
         private static IList<Product> products = new List<Product>();
+        private ShopDbContext db = new ShopDbContext();
 
         // GET: Main
         public ActionResult Index()
         {
-            return View(products); //returns View with products list
+            var p = db.Products;
+            return View(p); //returns View with products list
         }
 
         // GET: Main/Details/5
         public ActionResult Details(int id)
         {
-            return View(products.FirstOrDefault(x => x.ProductId == id)); // Send information about id and search for maching element from the list
+            Product p = db.Products.Find(id);
+            //return View(products.FirstOrDefault(x => x.ProductId == id)); // Send information about id and search for maching element from the list
+            return View(p);
         }
 
         // GET: Main/Create
@@ -33,23 +38,28 @@ namespace strona_internetowa_mvc.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            try
+
+            product.ProductId = products.Count + 1;
+            products.Add(product);
+
+            if(ModelState.IsValid)
             {
-                product.ProductId = products.Count + 1;
-                products.Add(product);
-                return RedirectToAction("Index");
+                db.Products.Add(product);
+                db.SaveChanges();
             }
 
-            catch
-            {
-                return View();
-            }       
-}
+            return RedirectToAction("Index");
+
+
+        }
 
         // GET: Main/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(products.FirstOrDefault(x => x.ProductId ==id));
+            Product p = db.Products.Find(id);
+
+            return View(p);
+            //return View(products.FirstOrDefault(x => x.ProductId ==id));
         }
 
         // POST: Main/Edit/5
@@ -57,18 +67,30 @@ namespace strona_internetowa_mvc.Controllers
         public ActionResult Edit(int id, Product product)
         {
                 Product single_product = products.FirstOrDefault(x => x.ProductId == id);
-                single_product.ProductName = product.ProductName;
-                single_product.Description = product.Description;
-                single_product.Amount = product.Amount;
+            single_product.ProductName = product.ProductName;
+            single_product.Description = product.Description;
+            single_product.Amount = product.Amount;
 
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
+            }
             
+            return View(product);
+
+            //return RedirectToAction("Index");
+
         }
 
         // GET: Main/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(products.FirstOrDefault(x=>x.ProductId==id));
+            Product p = db.Products.Find(id);
+            return View(p);
+            //return View(products.FirstOrDefault(x=>x.ProductId==id));
         }
 
         // POST: Main/Delete/5
@@ -79,6 +101,10 @@ namespace strona_internetowa_mvc.Controllers
             {
                 Product trash = products.FirstOrDefault(x => x.ProductId == id);
                 products.Remove(trash);
+
+                Product p = db.Products.Find(id);
+                db.Products.Remove(p);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }

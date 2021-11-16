@@ -131,6 +131,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111160010253_ShopDatabase.cs" />
+    <Compile Include="Migrations\202111160010253_ShopDatabase.designer.cs">
+      <DependentUpon>202111160010253_ShopDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ShopDbContext.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,7 +184,11 @@
     <Content Include="Views\Main\Edit.cshtml" />
     <Content Include="Views\Main\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202111160010253_ShopDatabase.resx">
+      <DependentUpon>202111160010253_ShopDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
