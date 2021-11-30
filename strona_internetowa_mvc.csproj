@@ -177,6 +177,7 @@
     <Content Include="Views\Main\Details.cshtml" />
     <Content Include="Views\Main\Edit.cshtml" />
     <Content Include="Views\Main\Delete.cshtml" />
+    <Content Include="Views\Main\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

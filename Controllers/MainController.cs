@@ -87,5 +87,20 @@ namespace strona_internetowa_mvc.Controllers
                 return View();
             }
         }
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }
